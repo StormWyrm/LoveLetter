@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="#f1efef"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@color/white"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/avatar"
+                android:singleLine="true"
+                android:text="昵称: nickname"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/nickname"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@+id/avatar"
+                android:singleLine="true"
+                android:text="账号: account"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/iv_qr_code"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:background="@drawable/qr_code"
+                android:clickable="true" />
+
+        </RelativeLayout>
+
+
+        <cn.qingfeng.aixin.ui.view.SettingView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:padding="10dp"
+            app:drawableLeft="@drawable/xiangce"
+            app:text="相册" />
+
+        <cn.qingfeng.aixin.ui.view.SettingView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:padding="10dp"
+            app:drawableLeft="@drawable/shoucang"
+            app:text="收藏" />
+
+        <cn.qingfeng.aixin.ui.view.SettingView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:padding="10dp"
+            android:layout_marginTop="15dp"
+            app:drawableLeft="@drawable/qianbao"
+            app:text="钱包" />
+
+        <cn.qingfeng.aixin.ui.view.SettingView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:padding="10dp"
+            app:drawableLeft="@drawable/biaoqing"
+            app:text="表情" />
+
+        <cn.qingfeng.aixin.ui.view.SettingView
+            android:id="@+id/setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:drawableLeft="@drawable/setting"
+            app:padding="10dp"
+            app:text="设置" />
+    </LinearLayout>
+</ScrollView>
+
+

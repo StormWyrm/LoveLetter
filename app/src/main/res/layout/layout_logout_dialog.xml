@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <Button
+        android:id="@+id/zhuxiao"
+        style="@style/SettingButton"
+        android:padding="27dp"
+        android:drawableLeft="@mipmap/me"
+        android:drawablePadding="30dp"
+        android:textSize="16sp"
+        android:text="退出当前账号" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_height="0.2dp"
+        android:background="#d7d7d7" />
+
+    <Button
+        android:id="@+id/tuichu"
+        android:onClick="setting"
+        android:padding="27dp"
+        android:drawableLeft="@mipmap/tuichu"
+        android:drawablePadding="30dp"
+        style="@style/SettingButton"
+        android:textSize="16sp"
+        android:text="关闭爱信" />
+</LinearLayout>

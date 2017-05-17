@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|bottom"
+        android:layout_marginBottom="6dp"
+        android:layout_marginLeft="10dp"
+        android:text="无法登录？"
+        android:textColor="@color/colorTheme"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_regist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_marginBottom="6dp"
+        android:layout_marginRight="10dp"
+        android:text="新用户注册"
+        android:textColor="@color/colorTheme"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/ll_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/touxiang"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:src="@mipmap/ic_launcher" />
+
+
+        <cn.qingfeng.aixin.ui.view.MyEditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="30dp"
+            app:hint="请输入账号" />
+
+        <cn.qingfeng.aixin.ui.view.MyEditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="3dp"
+            app:hint="请输入密码"
+            app:passwordType="text" />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/selector_login_button"
+            android:text="登录" />
+    </LinearLayout>
+</FrameLayout>

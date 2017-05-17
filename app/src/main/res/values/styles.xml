@@ -1,0 +1,38 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorTheme</item>
+        <item name="colorPrimaryDark">@color/colorTheme</item>
+        <item name="colorAccent">@color/colorTheme</item>
+    </style>
+
+    <style name="AppTheme.FullScreen" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+
+    <!--RadioButton 的样式-->
+    <style name="RadioButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:button">@null</item>
+        <item name="android:textColor">@drawable/selector_main_btn_text</item>
+    </style>
+
+    <!--设置界面按钮的样式-->
+    <style name="SettingButton">
+       <item name="android:layout_width">match_parent</item>
+       <item name="android:layout_height">wrap_content</item>
+       <item name="android:padding">12dp</item>
+       <item name="android:background">#fff</item>
+       <item name="android:gravity">center_vertical</item>
+       <item name="android:textSize">18sp</item>
+
+    </style>
+</resources>

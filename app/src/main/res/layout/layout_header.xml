@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_add_friend"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/selector_click_bg"
+    android:clickable="true"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:drawableLeft="@mipmap/add_friend"
+        android:drawablePadding="20dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="新的朋友"
+        android:textSize="18sp" />
+</LinearLayout>

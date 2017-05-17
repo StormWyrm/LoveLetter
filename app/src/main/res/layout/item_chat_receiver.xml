@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:text="2015.10.17"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/head"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/time"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/time"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/head"
+            android:background="@drawable/outgoing"
+            android:gravity="center"
+            android:text="接受消息"
+            android:textSize="15sp" />
+    </RelativeLayout>
+</FrameLayout>

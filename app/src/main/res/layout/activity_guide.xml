@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/ll_login_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btn_login_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_login_button"
+            android:onClick="enter"
+            android:text="进入应用" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_dot_guide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:orientation="horizontal" />
+</FrameLayout>

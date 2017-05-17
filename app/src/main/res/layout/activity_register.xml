@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_regist"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="cn.qingfeng.aixin.ui.activity.RegisterActivity">
+
+    <include layout="@layout/layout_toolbar" />
+
+
+    <cn.qingfeng.aixin.ui.view.MyEditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="40dp"
+        app:hint="请输入账号" />
+
+    <cn.qingfeng.aixin.ui.view.MyEditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        app:hint="请输入密码"
+        app:passwordType="text" />
+
+    <cn.qingfeng.aixin.ui.view.MyEditText
+        android:id="@+id/confirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        app:hint="请确认密码"
+        app:passwordType="text" />
+
+    <Button
+        android:id="@+id/btn_regist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/selector_login_button"
+        android:hint="请确认密码"
+        android:text="注册" />
+
+
+</LinearLayout>

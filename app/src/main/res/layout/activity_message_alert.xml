@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_message_alert"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f1efef"
+    tools:context="cn.qingfeng.aixin.ui.activity.MessageAlertActivity">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="通知显示消息详情" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/sc_message_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            />
+
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="声音" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/sc_message_voice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            />
+
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="震动" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/sc_message_shock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            />
+
+    </FrameLayout>
+
+
+</LinearLayout>

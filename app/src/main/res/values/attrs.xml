@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MyEditText">
+        <attr name="hint" format="string" />
+        <attr name="textType">
+            <enum name="datetime" value="1"/>
+            <enum name="phone" value="2"/>
+            <enum name="number" value="3"/>
+            <enum name="text" value="4"/>
+        </attr>
+        <attr name="passwordType">
+            <enum name="number" value="1"/>
+            <enum name="text" value="2"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="SettingView">
+        <attr name="text" format="string"/>
+        <attr name="drawableLeft" format="reference"/>
+        <attr name="padding" format="dimension"/>
+    </declare-styleable>
+</resources>

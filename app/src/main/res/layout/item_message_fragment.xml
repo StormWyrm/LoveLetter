@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dp">
+
+        <ImageView
+            android:id="@+id/head"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@+id/head"
+            android:singleLine="true"
+            android:text="nickname"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nickname"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="1dp"
+            android:layout_toRightOf="@+id/head"
+            android:singleLine="true"
+            android:text="account"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="2dp"
+            android:text="time" />
+    </RelativeLayout>
+</FrameLayout>

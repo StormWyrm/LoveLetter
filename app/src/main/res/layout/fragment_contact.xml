@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <cn.qingfeng.aixin.ui.view.ListViewWidthHeader
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="0.2dp"
+        android:divider="@color/gray"
+        android:scrollbars="none"
+        android:footerDividersEnabled="false"
+        />
+
+    <cn.qingfeng.aixin.ui.view.QuickIndexBar
+        android:id="@+id/quickIndexBar"
+        android:layout_width="15dp"
+        android:layout_marginTop="8dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent" />
+
+    <TextView
+        android:id="@+id/toast"
+        android:layout_width="90dp"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/background_toast"
+        android:gravity="center"
+        android:text="A"
+        android:textSize="18sp"
+        android:visibility="gone" />
+</RelativeLayout>
+
+
