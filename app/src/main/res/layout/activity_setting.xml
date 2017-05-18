@@ -1,61 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    tools:context="cn.qingfeng.aixin.ui.activity.SettingActivity">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <include layout="@layout/layout_toolbar"/>
 
 
-    <cn.qingfeng.aixin.ui.view.SettingView
-        android:layout_marginTop="15dp"
+    <cn.qingfeng.loveletter.common.ui.view.SettingView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:onClick="newMessage"
         app:text="新消息提醒"
         />
-    <cn.qingfeng.aixin.ui.view.SettingView
+
+    <cn.qingfeng.loveletter.common.ui.view.SettingView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:text="勿扰模式"
         />
-    <cn.qingfeng.aixin.ui.view.SettingView
+
+    <cn.qingfeng.loveletter.common.ui.view.SettingView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:text="聊天"
         />
-    <cn.qingfeng.aixin.ui.view.SettingView
+
+    <cn.qingfeng.loveletter.common.ui.view.SettingView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:text="隐私"
         />
-    <cn.qingfeng.aixin.ui.view.SettingView
+
+    <cn.qingfeng.loveletter.common.ui.view.SettingView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:text="通用"
         />
 
-    <cn.qingfeng.aixin.ui.view.SettingView
+    <cn.qingfeng.loveletter.common.ui.view.SettingView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:text="账号与安全"
         />
 
-    <cn.qingfeng.aixin.ui.view.SettingView
-        android:layout_marginTop="15dp"
+    <cn.qingfeng.loveletter.common.ui.view.SettingView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         app:text="关于爱信"
         />
-    <cn.qingfeng.aixin.ui.view.SettingView
+
+    <cn.qingfeng.loveletter.common.ui.view.SettingView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:text="退出"
         android:clickable="true"
         android:onClick="setting"
+        app:text="退出"
         />
 
 </LinearLayout>

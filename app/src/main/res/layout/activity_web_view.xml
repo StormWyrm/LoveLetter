@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="cn.qingfeng.aixin.ui.activity.WebViewActivity">
+    android:orientation="vertical">
     <ProgressBar
         android:id="@+id/pb"
         style="@android:style/Widget.ProgressBar.Horizontal"

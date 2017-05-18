@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
-    android:orientation="vertical"
-    tools:context="cn.qingfeng.aixin.ui.activity.RegisterActivity">
+    android:orientation="vertical">
 
     <include layout="@layout/layout_toolbar" />
 

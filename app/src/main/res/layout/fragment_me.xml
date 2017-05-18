@@ -58,7 +58,7 @@
         </RelativeLayout>
 
 
-        <cn.qingfeng.aixin.ui.view.SettingView
+        <cn.qingfeng.loveletter.common.ui.view.SettingView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -66,14 +66,14 @@
             app:drawableLeft="@drawable/xiangce"
             app:text="相册" />
 
-        <cn.qingfeng.aixin.ui.view.SettingView
+        <cn.qingfeng.loveletter.common.ui.view.SettingView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:padding="10dp"
             app:drawableLeft="@drawable/shoucang"
             app:text="收藏" />
 
-        <cn.qingfeng.aixin.ui.view.SettingView
+        <cn.qingfeng.loveletter.common.ui.view.SettingView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:padding="10dp"
@@ -81,7 +81,7 @@
             app:drawableLeft="@drawable/qianbao"
             app:text="钱包" />
 
-        <cn.qingfeng.aixin.ui.view.SettingView
+        <cn.qingfeng.loveletter.common.ui.view.SettingView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -89,7 +89,7 @@
             app:drawableLeft="@drawable/biaoqing"
             app:text="表情" />
 
-        <cn.qingfeng.aixin.ui.view.SettingView
+        <cn.qingfeng.loveletter.common.ui.view.SettingView
             android:id="@+id/setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

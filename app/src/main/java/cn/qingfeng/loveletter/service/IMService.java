@@ -34,15 +34,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cn.qingfeng.loveletter.R;
-import cn.qingfeng.loveletter.dbhelper.ContactOpenHelper;
-import cn.qingfeng.loveletter.dbhelper.SmsOpenHelper;
+import cn.qingfeng.loveletter.common.util.PinyinUtil;
+import cn.qingfeng.loveletter.common.util.ThreadUtil;
+import cn.qingfeng.loveletter.db.ContactOpenHelper;
+import cn.qingfeng.loveletter.db.SmsOpenHelper;
 import cn.qingfeng.loveletter.provider.ContactProvider;
 import cn.qingfeng.loveletter.provider.SmsProvider;
-import cn.qingfeng.loveletter.ui.activity.ChatActivity;
-import cn.qingfeng.loveletter.utils.PinyinUtils;
-import cn.qingfeng.loveletter.utils.SPUtils;
-import cn.qingfeng.loveletter.utils.ThreadUtils;
-import cn.qingfeng.loveletter.utils.ToastUtils;
+import cn.qingfeng.loveletter.chat.ChatActivity;
+import cn.qingfeng.loveletter.common.util.SPUtil;
+import cn.qingfeng.loveletter.common.util.ToastUtil;
 
 
 /**
@@ -91,7 +91,7 @@ public class IMService extends Service {
         super.onCreate();
 
         System.out.println("--------------同步花名册 begin--------------");
-        ThreadUtils.runOnThread(new Runnable() {
+        ThreadUtil.runOnThread(new Runnable() {
             @Override
             public void run() {
                 // 得到花名册对象
@@ -141,7 +141,7 @@ public class IMService extends Service {
                         @Override
                         public void processPacket(Packet packet) {
                             //接收到添加好友申请
-                            ToastUtils.showToastSafe(getApplication(), "好友添加申请");
+                            ToastUtil.showToastSafe(getApplication(), "好友添加申请");
                         }
                     },
                     new PacketFilter() {
@@ -191,7 +191,7 @@ public class IMService extends Service {
         values.put(ContactOpenHelper.ContactTable.ACCOUNT, account);
         values.put(ContactOpenHelper.ContactTable.NICKNAME, nickname);
         values.put(ContactOpenHelper.ContactTable.AVATAR, "0");
-        values.put(ContactOpenHelper.ContactTable.PINYIN, PinyinUtils.getPinyin(nickname));
+        values.put(ContactOpenHelper.ContactTable.PINYIN, PinyinUtil.getPinyin(nickname));
         values.put(ContactOpenHelper.ContactTable.MY_ACCOUNT, IMService.ACCOUNT);
         // 先update,后插入-->重点
         int updateCount =
@@ -220,7 +220,7 @@ public class IMService extends Service {
             saveMessage(getApplicationContext(), message, message.getTo(), message.getFrom());
         } catch (XMPPException e) {
             e.printStackTrace();
-            ToastUtils.showToastSafe(getApplicationContext(), "发送失败,请检查网络");
+            ToastUtil.showToastSafe(getApplicationContext(), "发送失败,请检查网络");
         }
     }
 
@@ -269,13 +269,13 @@ public class IMService extends Service {
         builder.setPriority(Notification.PRIORITY_DEFAULT);//设置优先级
         builder.setAutoCancel(true);//设置点击后关闭
         builder.setDefaults(Notification.DEFAULT_LIGHTS);//设置默认灯光
-        if ((Boolean) SPUtils.get(this, "isShowMessageDetail", true)) {
+        if ((Boolean) SPUtil.get(this, "isShowMessageDetail", true)) {
             builder.setTicker(message);//出现的时候显示在状态栏
         }
-        if((Boolean) SPUtils.get(this,"isShowMessageVoice",true)){
+        if((Boolean) SPUtil.get(this,"isShowMessageVoice",true)){
             builder.setDefaults(Notification.DEFAULT_SOUND);
         }
-        if((Boolean) SPUtils.get(this,"isShowMessageShock",true)){
+        if((Boolean) SPUtil.get(this,"isShowMessageShock",true)){
             builder.setDefaults(Notification.DEFAULT_VIBRATE);
         }
 
@@ -350,12 +350,12 @@ public class IMService extends Service {
             final String nickname = message.getFrom().substring(0, message.getFrom().indexOf("@"));
 
             //收到消息 将消息缓存到本地 并显示通知
-            ThreadUtils.runOnThread(new Runnable() {
+            ThreadUtil.runOnThread(new Runnable() {
                 @Override
                 public void run() {
                     //缓存消息
                     saveMessage(getApplicationContext(), message, message.getFrom(), message.getTo());
-                    ThreadUtils.runOnUiThread(new Runnable() {
+                    ThreadUtil.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             showNotification(nickname, message.getBody());//显示通知

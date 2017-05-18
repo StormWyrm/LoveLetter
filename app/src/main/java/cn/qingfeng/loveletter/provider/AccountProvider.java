@@ -8,7 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 
-import cn.qingfeng.loveletter.dbhelper.AccountOpenHelper;
+import cn.qingfeng.loveletter.db.AccountOpenHelper;
 
 
 /**

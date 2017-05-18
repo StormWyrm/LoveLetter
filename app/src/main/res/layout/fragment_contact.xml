@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <cn.qingfeng.aixin.ui.view.ListViewWidthHeader
+    <cn.qingfeng.loveletter.main.view.ListViewWidthHeader
         android:id="@+id/listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,7 +13,7 @@
         android:footerDividersEnabled="false"
         />
 
-    <cn.qingfeng.aixin.ui.view.QuickIndexBar
+    <cn.qingfeng.loveletter.main.view.QuickIndexBar
         android:id="@+id/quickIndexBar"
         android:layout_width="15dp"
         android:layout_marginTop="8dp"

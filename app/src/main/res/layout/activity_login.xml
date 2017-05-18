@@ -42,7 +42,7 @@
             android:src="@mipmap/ic_launcher" />
 
 
-        <cn.qingfeng.aixin.ui.view.MyEditText
+        <cn.qingfeng.loveletter.common.ui.view.MyEditText
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             android:layout_marginTop="30dp"
             app:hint="请输入账号" />
 
-        <cn.qingfeng.aixin.ui.view.MyEditText
+        <cn.qingfeng.loveletter.common.ui.view.MyEditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
