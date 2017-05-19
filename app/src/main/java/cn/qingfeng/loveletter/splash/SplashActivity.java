@@ -93,7 +93,7 @@ public class SplashActivity extends BaseActivity {
 
         boolean conServer = XmppUtil.conServer();
         if (!conServer) {
-            ToastUtil.showToastSafe(SplashActivity.this, "服务器出现异常,请重试");
+            ToastUtil.showToastSafe(SplashActivity.this, getString(R.string.login_server_error));
             startActivity(new Intent(SplashActivity.this, LoginActivity.class));
             return;
         }
@@ -101,7 +101,7 @@ public class SplashActivity extends BaseActivity {
         //开始登录
         boolean b = XmppUtil.login(username, password);
         if (!b) {
-            ToastUtil.showToastSafe(SplashActivity.this, "自动登录失败,请重试");
+            ToastUtil.showToastSafe(SplashActivity.this, getString(R.string.login_autologin_error));
             startActivity(new Intent(SplashActivity.this, LoginActivity.class));
             return;
         }

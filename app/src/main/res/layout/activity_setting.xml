@@ -19,30 +19,6 @@
     <cn.qingfeng.loveletter.common.ui.view.SettingView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:text="勿扰模式"
-        />
-
-    <cn.qingfeng.loveletter.common.ui.view.SettingView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:text="聊天"
-        />
-
-    <cn.qingfeng.loveletter.common.ui.view.SettingView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:text="隐私"
-        />
-
-    <cn.qingfeng.loveletter.common.ui.view.SettingView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:text="通用"
-        />
-
-    <cn.qingfeng.loveletter.common.ui.view.SettingView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         app:text="账号与安全"
         />
 

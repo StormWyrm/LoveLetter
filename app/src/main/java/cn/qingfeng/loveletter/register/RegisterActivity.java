@@ -36,7 +36,7 @@ public class RegisterActivity extends BaseActivity {
     @Override
     protected void initUi() {
         setContentView(R.layout.activity_register);
-        addActionBar("注册新用户",true);
+        addActionBar(getString(R.string.register_title),true);
 
 
         mRegist = (Button) findViewById(R.id.btn_regist);
@@ -54,19 +54,19 @@ public class RegisterActivity extends BaseActivity {
                 final String password = mPassword.getText().toString();
                 String confirmPassword = mConfirmPassword.getText().toString();
                 if (TextUtils.isEmpty(username)) {
-                    ToastUtil.showToast(RegisterActivity.this, "用户名不能为空");
+                    ToastUtil.showToast(RegisterActivity.this, getString(R.string.register_name_not_empty));
                     return;
                 }
                 if (TextUtils.isEmpty(password)) {
-                    ToastUtil.showToast(RegisterActivity.this, "密码不能为空");
+                    ToastUtil.showToast(RegisterActivity.this, getString(R.string.register_password_not_empty));
                     return;
                 }
                 if (TextUtils.isEmpty(confirmPassword)) {
-                    ToastUtil.showToast(RegisterActivity.this, "确认密码不能为空");
+                    ToastUtil.showToast(RegisterActivity.this,  getString(R.string.register_confirm_password_not_empty));
                     return;
                 }
                 if (!confirmPassword.equals(password)) {
-                    ToastUtil.showToast(RegisterActivity.this, "密码前后不一致");
+                    ToastUtil.showToast(RegisterActivity.this, getString(R.string.register_password_inconsistent));
                     return;
                 }
 
@@ -81,22 +81,22 @@ public class RegisterActivity extends BaseActivity {
             public void run() {
                 boolean b = XmppUtil.conServer();
                 if (!b) {
-                    ToastUtil.showToastSafe(RegisterActivity.this, "服务器出现异常");
+                    ToastUtil.showToastSafe(RegisterActivity.this, getString(R.string.register_server_error));
                     return;
                 }
                 int id = XmppUtil.regist(username, password);
                 switch (id) {
                     case 0:
                         //服务器出现异常
-                        ToastUtil.showToastSafe(RegisterActivity.this, "服务器出现异常");
+                        ToastUtil.showToastSafe(RegisterActivity.this, getString(R.string.register_server_error));
                         break;
                     case 1:
                         ThreadUtil.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                builder.setMessage("注册成功,前去登录?");
-                                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                builder.setMessage(R.string.register_dialog_message);
+                                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         //注册成功
@@ -107,7 +107,7 @@ public class RegisterActivity extends BaseActivity {
                                         finish();
                                     }
                                 });
-                                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
@@ -119,11 +119,11 @@ public class RegisterActivity extends BaseActivity {
                         break;
                     case 2:
                         //用户已经存在
-                        ToastUtil.showToastSafe(RegisterActivity.this, "用户已存在");
+                        ToastUtil.showToastSafe(RegisterActivity.this, getString(R.string.register_user_exist));
                         break;
                     case 3:
                         //注册失败
-                        ToastUtil.showToastSafe(RegisterActivity.this, "注册失败,请重试");
+                        ToastUtil.showToastSafe(RegisterActivity.this, getString(R.string.resiter_failure));
                         break;
                 }
             }

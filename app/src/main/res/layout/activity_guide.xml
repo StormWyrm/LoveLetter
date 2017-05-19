@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/selector_login_button"
             android:onClick="enter"
-            android:text="进入应用" />
+            android:text="@string/guide_enter_app" />
 
     </LinearLayout>
 

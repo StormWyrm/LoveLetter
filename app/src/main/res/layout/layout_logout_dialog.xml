@@ -10,7 +10,7 @@
         android:drawableLeft="@mipmap/me"
         android:drawablePadding="30dp"
         android:textSize="16sp"
-        android:text="退出当前账号" />
+        android:text="@string/setting_dialog_exit_account" />
 
     <View
         android:layout_width="match_parent"
@@ -27,5 +27,5 @@
         android:drawablePadding="30dp"
         style="@style/SettingButton"
         android:textSize="16sp"
-        android:text="关闭爱信" />
+        android:text="@string/setting_dialog_close_app" />
 </LinearLayout>

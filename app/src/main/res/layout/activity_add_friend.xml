@@ -3,8 +3,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-    >
+              android:orientation="vertical">
 
     <include layout="@layout/layout_toolbar"/>
 
@@ -15,7 +14,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="15dp"
-        app:hint="请输入账号"
+        app:hint="@string/main_search_acount_hint"
         />
 
     <Button
@@ -25,7 +24,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginTop="20dp"
-        android:text="添加"
+        android:text="@string/main_search_add"
         android:background="@drawable/selector_login_button"/>
 
 

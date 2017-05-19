@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <include layout="@layout/layout_toolbar"/>
 
@@ -13,39 +11,40 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#fff" />
+        android:background="#fff"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.2dp"
         android:background="@color/gray"
         />
+
     <RadioGroup
         android:id="@+id/rg_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="1dp"
-        android:background="#fff"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
 
         <RadioButton
             android:id="@+id/rb_message"
             style="@style/RadioButton"
             android:checked="true"
             android:drawableTop="@drawable/selector_message"
-            android:text="消息" />
+            android:text="@string/main_message_title"/>
 
         <RadioButton
             android:id="@+id/rb_contact"
             style="@style/RadioButton"
             android:drawableTop="@drawable/selector_contact"
-            android:singleLine="true"
-            android:text="通讯录" />
+            android:text="@string/main_contact_title"/>
 
         <RadioButton
             android:id="@+id/rb_me"
             style="@style/RadioButton"
             android:drawableTop="@drawable/selector_me"
-            android:text="我" />
+            android:text="@string/main_me_title"/>
 
     </RadioGroup>
 </LinearLayout>

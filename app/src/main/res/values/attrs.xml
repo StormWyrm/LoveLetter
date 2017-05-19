@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="MyEditText">
-        <attr name="hint" format="string" />
+        <attr name="hint" format="string"/>
         <attr name="textType">
             <enum name="datetime" value="1"/>
             <enum name="phone" value="2"/>
@@ -15,7 +15,7 @@
     </declare-styleable>
 
     <declare-styleable name="SettingView">
-        <attr name="text" format="string"/>
+        <attr name="text" format="string|reference"/>
         <attr name="drawableLeft" format="reference"/>
         <attr name="padding" format="dimension"/>
     </declare-styleable>

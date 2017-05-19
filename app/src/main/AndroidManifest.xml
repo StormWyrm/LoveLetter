@@ -8,6 +8,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".common.AppApplication"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -20,56 +21,28 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity
             android:name=".guide.GuideActivity"
             android:theme="@style/AppTheme.FullScreen"/>
+
         <activity android:name=".login.LoginActivity"/>
-        <activity
-            android:name=".register.RegisterActivity"
-            android:parentActivityName=".login.LoginActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".login.LoginActivity"/>
-        </activity>
+
+        <activity android:name=".register.RegisterActivity"/>
+
         <activity android:name=".main.MainActivity"/>
-        //软键盘的控制的属性
-        <!-- android:windowSoftInputMode="adjustUnspecified|stateHidden" -->
+
         <activity
             android:name=".chat.ChatActivity"
-            android:parentActivityName=".main.MainActivity"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity"/>
-        </activity>
-        <activity
-            android:name=".chat.DetailActivity"
-            android:parentActivityName=".main.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity"/>
-        </activity>
-        <activity
-            android:name=".setting.SettingActivity"
-            android:parentActivityName=".main.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity"/>
-        </activity>
-        <activity
-            android:name=".main.AddFriendActivity"
-            android:parentActivityName=".main.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity"/>
-        </activity>
-        <activity
-            android:name=".setting.MessageAlertActivity"
-            android:parentActivityName=".setting.SettingActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".setting.SettingActivity"/>
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+
+        <activity android:name=".chat.DetailActivity"/>
+
+        <activity android:name=".setting.SettingActivity"/>
+
+        <activity android:name=".main.AddFriendActivity"/>
+
+        <activity android:name=".setting.MessageAlertActivity"/>
 
         <service
             android:name=".service.IMService"

@@ -5,12 +5,12 @@
 
     <item
         android:id="@+id/scan"
-        android:title="扫一扫"
+        android:title="@string/main_menu_scan"
         android:icon="@drawable/qr_code"
         />
     <item
         android:id="@+id/add_friend"
         android:icon="@mipmap/add_friend"
-        android:title="添加朋友" />
+        android:title="@string/main_menu_add_friend" />
 
 </menu>

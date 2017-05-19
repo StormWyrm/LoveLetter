@@ -36,7 +36,6 @@
             android:layout_toRightOf="@+id/head"
             android:background="@drawable/incoming"
             android:gravity="center"
-            android:text="发送消息"
             android:textSize="15sp" />
     </RelativeLayout>
 </FrameLayout>

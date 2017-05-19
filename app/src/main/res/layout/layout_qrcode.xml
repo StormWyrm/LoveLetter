@@ -26,7 +26,6 @@
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/avatar"
             android:singleLine="true"
-            android:text="昵称: nickname"
             android:textSize="14sp" />
 
         <TextView
@@ -38,7 +37,6 @@
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/avatar"
             android:singleLine="true"
-            android:text="账号: account"
             android:textSize="14sp" />
 
     </RelativeLayout>
@@ -54,5 +52,5 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:gravity="center"
-        android:text="扫一扫上面的二维码,添加我的爱信" />
+        android:text="@string/main_me_qrcode_message" />
 </LinearLayout>

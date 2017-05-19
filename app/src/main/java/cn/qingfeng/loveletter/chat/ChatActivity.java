@@ -8,10 +8,15 @@ import android.content.ServiceConnection;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -34,15 +39,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import cn.qingfeng.loveletter.R;
+import cn.qingfeng.loveletter.common.AppApplication;
+import cn.qingfeng.loveletter.common.util.EmotionUtil;
+import cn.qingfeng.loveletter.common.util.SpanStringUtil;
+import cn.qingfeng.loveletter.common.util.ThreadUtil;
 import cn.qingfeng.loveletter.common.util.ToastUtil;
 import cn.qingfeng.loveletter.db.ContactOpenHelper;
 import cn.qingfeng.loveletter.db.SmsOpenHelper;
 import cn.qingfeng.loveletter.provider.SmsProvider;
 import cn.qingfeng.loveletter.service.IMService;
-import cn.qingfeng.loveletter.common.ui.BaseActivity;
-import cn.qingfeng.loveletter.common.util.EmotionUtil;
-import cn.qingfeng.loveletter.common.util.SpanStringUtil;
-import cn.qingfeng.loveletter.common.util.ThreadUtil;
 
 
 /**
@@ -53,7 +58,7 @@ import cn.qingfeng.loveletter.common.util.ThreadUtil;
  * @DESC: 聊天界面的实现
  * @VERSION: V1.0
  */
-public class ChatActivity extends BaseActivity {
+public class ChatActivity extends AppCompatActivity {
     private ListView mListView;
     private EditText etChatMessage;
     private Button btnSend;
@@ -90,18 +95,24 @@ public class ChatActivity extends BaseActivity {
         }
     };
     private IMService.MyBinder myBinder;//服务
+    private ActionBar mActionBar;
 
-
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        AppApplication.getInstance().addActivity(this);
+        initUi();
+        initData();
+        initListener();
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        AppApplication.getInstance().removeActivity(this);
         getContentResolver().unregisterContentObserver(mContentObserver);
-
         //解除绑定
         unbindService(mServiceConnection);
     }
 
-    @Override
     protected void initUi() {
         setContentView(R.layout.activity_chat);
         addActionBar("", true);
@@ -130,12 +141,10 @@ public class ChatActivity extends BaseActivity {
         bindService(new Intent(ChatActivity.this,IMService.class),mServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
-    @Override
     protected void initData() {
         setOrUpdateAdapter();
     }
 
-    @Override
     protected void initListener() {
         //发送消息
         btnSend.setOnClickListener(new View.OnClickListener() {
@@ -248,6 +257,25 @@ public class ChatActivity extends BaseActivity {
 
     }
 
+    //为Activity添加ToolBar
+    protected void addActionBar(String title, boolean isBackable) {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
+        mActionBar = getSupportActionBar();
+        if (!TextUtils.isEmpty(title)) {
+            mActionBar.setTitle(title);
+        }
+        if (isBackable) {
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+            mActionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
     /**
      * 让Fragment能获取edit的内容
      */
@@ -314,7 +342,7 @@ public class ChatActivity extends BaseActivity {
                     if (myBinder != null) {
                         myBinder.sendMessage(msg);
                     } else {
-                        ToastUtil.showToastSafe(ChatActivity.this, "发送失败");
+                        ToastUtil.showToastSafe(ChatActivity.this, getString(R.string.chat_send_message_error));
                     }
 
                     ThreadUtil.runOnUiThread(new Runnable() {

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ll_regist"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/ll_regist"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_horizontal"
+              android:orientation="vertical">
 
     <include layout="@layout/layout_toolbar" />
 
@@ -48,8 +47,7 @@
         android:layout_marginRight="25dp"
         android:layout_marginTop="25dp"
         android:background="@drawable/selector_login_button"
-        android:hint="请确认密码"
-        android:text="注册" />
+        android:text="@string/register" />
 
 
 </LinearLayout>

@@ -41,7 +41,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initUi() {
         setContentView(R.layout.activity_main);
-        addActionBar("消息", false);
+        addActionBar(getString(R.string.main_message_title), false);
 
         mViewPage = (ViewPager) findViewById(R.id.viewPage);
         mRadioGroup = (RadioGroup) findViewById(R.id.rg_main);
@@ -139,15 +139,15 @@ public class MainActivity extends BaseActivity {
             switch (position) {
                 case 0:
                     button = (RadioButton) findViewById(R.id.rb_message);
-                    mActionBar.setTitle("消息");
+                    mActionBar.setTitle(getString(R.string.main_message_title));
                     break;
                 case 1:
                     button = (RadioButton) findViewById(R.id.rb_contact);
-                    mActionBar.setTitle("联系人");
+                    mActionBar.setTitle(getString(R.string.main_contact_title));
                     break;
                 case 2:
                     button = (RadioButton) findViewById(R.id.rb_me);
-                    mActionBar.setTitle("我");
+                    mActionBar.setTitle(getString(R.string.main_me_title));
                     break;
             }
             button.setChecked(true);
@@ -169,16 +169,16 @@ public class MainActivity extends BaseActivity {
             switch (checkedId) {
                 case R.id.rb_message:
                     mViewPage.setCurrentItem(0, false);
-                    mActionBar.setTitle("消息");
+                    mActionBar.setTitle(getString(R.string.main_message_title));
                     break;
                 case R.id.rb_contact:
                     mViewPage.setCurrentItem(1, false);
-                    mActionBar.setTitle("通讯录");
+                    mActionBar.setTitle(R.string.main_contact_title);
                     break;
 
                 case R.id.rb_me:
                     mViewPage.setCurrentItem(2, false);
-                    mActionBar.setTitle("我");
+                    mActionBar.setTitle(R.string.main_me_title);
                     break;
 
             }

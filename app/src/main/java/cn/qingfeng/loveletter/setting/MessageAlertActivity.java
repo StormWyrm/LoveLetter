@@ -23,7 +23,7 @@ public class MessageAlertActivity extends BaseActivity implements CompoundButton
     @Override
     protected void initUi() {
         setContentView(R.layout.activity_message_alert);
-        addActionBar("新消息提醒",true);
+        addActionBar(getString(R.string.setting_new_message_title),true);
 
         scMessageDetail = (SwitchCompat) findViewById(R.id.sc_message_detail);
         scMessageVoice = (SwitchCompat) findViewById(R.id.sc_message_voice);

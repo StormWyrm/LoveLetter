@@ -141,7 +141,7 @@ public class IMService extends Service {
                         @Override
                         public void processPacket(Packet packet) {
                             //接收到添加好友申请
-                            ToastUtil.showToastSafe(getApplication(), "好友添加申请");
+                            ToastUtil.showToastSafe(getApplication(), getString(R.string.server_add_friend_request));
                         }
                     },
                     new PacketFilter() {
@@ -220,7 +220,7 @@ public class IMService extends Service {
             saveMessage(getApplicationContext(), message, message.getTo(), message.getFrom());
         } catch (XMPPException e) {
             e.printStackTrace();
-            ToastUtil.showToastSafe(getApplicationContext(), "发送失败,请检查网络");
+            ToastUtil.showToastSafe(getApplicationContext(), getString(R.string.server_send_message_error));
         }
     }
 

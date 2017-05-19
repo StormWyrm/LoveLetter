@@ -84,7 +84,7 @@ public class LoginActivity extends BaseActivity {
                 final String username = mUsername.getText().toString();
                 final String password = mPassword.getText().toString();
                 if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
-                    ToastUtil.showToast(LoginActivity.this, "账号或密码不能为空");
+                    ToastUtil.showToast(LoginActivity.this, getString(R.string.login_username_or_password_empty));
                     return;
                 }
                 ThreadUtil.runOnThread(new Runnable() {
@@ -137,7 +137,7 @@ public class LoginActivity extends BaseActivity {
         //开始登录
         boolean login = XmppUtil.login(username, password);
         if (!login) {
-            ToastUtil.showToastSafe(LoginActivity.this, "登录失败,请重试");
+            ToastUtil.showToastSafe(LoginActivity.this, getString(R.string.login_error));
             return;
         }
 

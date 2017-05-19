@@ -25,7 +25,7 @@ public class SettingActivity extends BaseActivity {
     @Override
     protected void initUi() {
         setContentView(R.layout.activity_setting);
-        addActionBar("设置",true);
+        addActionBar(getString(R.string.setting_title),true);
 
     }
 

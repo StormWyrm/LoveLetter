@@ -31,7 +31,7 @@ public class AddFriendActivity extends BaseActivity {
     @Override
     protected void initUi() {
         setContentView(R.layout.activity_add_friend);
-        addActionBar("添加好友",true);
+        addActionBar(getString(R.string.main_search_title),true);
 
         searchAccount = ((MyEditText) findViewById(R.id.search_account));
         btnSearch = (Button) findViewById(R.id.btn_search);
@@ -52,7 +52,7 @@ public class AddFriendActivity extends BaseActivity {
             public void onClick(View v) {
                 String name = searchAccount.getText().toString();
                 if (TextUtils.isEmpty(name)) {
-                    ToastUtil.showToast(AddFriendActivity.this, "搜索账号不能为空");
+                    ToastUtil.showToast(AddFriendActivity.this, getString(R.string.main_search_account_empty));
                     return;
                 }
                 addFriend(name);

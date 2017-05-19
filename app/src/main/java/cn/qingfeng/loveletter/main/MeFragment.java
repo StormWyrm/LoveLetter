@@ -49,8 +49,8 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         super.initData();
         account = IMService.ACCOUNT;
         nickname = account.substring(0, account.indexOf("@"));
-        mNickname.setText("昵称：" + nickname);
-        mAccount.setText("账户：" + account);
+        mNickname.setText(getString(R.string.main_me_message_nickname) + nickname);
+        mAccount.setText(getString(R.string.main_me_message_account) + account);
     }
 
     @Override
@@ -78,8 +78,8 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         TextView iv_nickname = (TextView) view.findViewById(R.id.nickname);
         TextView iv_account = (TextView) view.findViewById(R.id.account);
 
-        iv_nickname.setText("昵称：" + nickname);
-        iv_account.setText("账户：" + account);
+        iv_nickname.setText(getString(R.string.main_me_message_nickname) + nickname);
+        iv_account.setText(getString(R.string.main_me_message_account) + account);
         Bitmap qrCode = EncodingUtils.createQRCode(account,
                 DensityUtil.dp2px(mActivity, 250),
                 DensityUtil.dp2px(mActivity, 250),

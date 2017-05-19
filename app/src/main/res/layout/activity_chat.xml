@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cn.qingfeng.aixin.ui.view.KeyboardLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<cn.qingfeng.loveletter.common.ui.view.KeyboardLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_keyboard"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_toolbar" />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorTheme"
+        android:minHeight="?attr/actionBarSize"
+        />
 
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:divider="@android:color/transparent"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:divider="@android:color/transparent"
         android:listSelector="@android:color/transparent"
-        android:transcriptMode="alwaysScroll" />
+        android:transcriptMode="alwaysScroll"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,7 +39,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/shape_chat_background"
-            android:maxLines="2" />
+            android:maxLines="2"/>
 
         <ImageView
             android:id="@+id/iv_emotion"
@@ -41,7 +47,7 @@
             android:layout_height="35dp"
             android:layout_margin="3dp"
             android:onClick="showFrameLayout"
-            android:src="@drawable/emotion" />
+            android:src="@drawable/emotion"/>
 
         <FrameLayout
             android:layout_width="wrap_content"
@@ -52,18 +58,18 @@
                 android:id="@+id/btn_send"
                 android:layout_width="50dp"
                 android:layout_height="40dp"
-                android:onClick="sendMessage"
                 android:background="@drawable/selector_login_button"
-                android:text="发送"
+                android:onClick="sendMessage"
+                android:text="@string/chat_send"
                 android:textSize="12dp"
-                android:visibility="gone" />
+                android:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/iv_more"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:onClick="showMore"
-                android:src="@drawable/emotion_add" />
+                android:src="@drawable/emotion_add"/>
 
         </FrameLayout>
 
@@ -77,4 +83,4 @@
         android:visibility="gone">
     </FrameLayout>
 
-</cn.qingfeng.aixin.ui.view.KeyboardLinearLayout>
+</cn.qingfeng.loveletter.common.ui.view.KeyboardLinearLayout>

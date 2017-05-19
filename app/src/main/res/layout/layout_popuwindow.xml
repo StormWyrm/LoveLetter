@@ -7,7 +7,7 @@
         android:id="@+id/delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="删除该对话"
+        android:text="@string/main_message_delete_record"
         android:textSize="13sp"
         android:background="@drawable/background_toast"
         />

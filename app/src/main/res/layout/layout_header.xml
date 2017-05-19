@@ -14,6 +14,6 @@
         android:drawablePadding="20dp"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:text="新的朋友"
+        android:text="@string/main_contact_new_friend"
         android:textSize="18sp" />
 </LinearLayout>
