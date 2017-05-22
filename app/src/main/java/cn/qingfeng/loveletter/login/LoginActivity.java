@@ -25,14 +25,14 @@ import cn.qingfeng.loveletter.common.util.XmppUtil;
 
 
 /**
- * @AUTHER:       李青峰
- * @EMAIL:        1021690791@qq.com
- * @PHONE:        18045142956
- * @DATE:         2016/12/1 8:30
- * @DESC:         登录界面
- * @VERSION:      V1.0
+ * @AUTHER: 李青峰
+ * @EMAIL: 1021690791@qq.com
+ * @PHONE: 18045142956
+ * @DATE: 2016/12/1 8:30
+ * @DESC: 登录界面
+ * @VERSION: V1.0
  */
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     private LinearLayout linearLayout;
     private MyEditText mUsername;
@@ -40,6 +40,7 @@ public class LoginActivity extends BaseActivity {
     private Button mLogin;
     private TextView mRegist;
 
+    private LoginContract.Presenter mPresenter;
 
     @Override
     protected void initUi() {
@@ -50,8 +51,7 @@ public class LoginActivity extends BaseActivity {
         mLogin = (Button) findViewById(R.id.btn_login);
         mRegist = (TextView) findViewById(R.id.tv_regist);
 
-
-
+        mPresenter = new LoginPresenter(mActivity, this);
         //开启动画
         startAnimation();
     }
@@ -87,12 +87,7 @@ public class LoginActivity extends BaseActivity {
                     ToastUtil.showToast(LoginActivity.this, getString(R.string.login_username_or_password_empty));
                     return;
                 }
-                ThreadUtil.runOnThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        login(username, password);
-                    }
-                });
+                mPresenter.login(username, password);
 
             }
         });
@@ -100,7 +95,7 @@ public class LoginActivity extends BaseActivity {
         mRegist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                mPresenter.register();
             }
         });
     }
@@ -125,38 +120,24 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    //登录
-    public void login(String username, String password) {
 
-        boolean conServer = XmppUtil.conServer();
-        if (!conServer) {
-            ToastUtil.showToastSafe(LoginActivity.this, "服务器出现异常");
-            return;
-        }
-
-        //开始登录
-        boolean login = XmppUtil.login(username, password);
-        if (!login) {
-            ToastUtil.showToastSafe(LoginActivity.this, getString(R.string.login_error));
-            return;
-        }
-
-        //把登录账号保存到本地 方便自动登录
-        SPUtil.put(LoginActivity.this, "username", username);
-        SPUtil.put(LoginActivity.this, "password", password);
-
-        //设置自动登录
-        SPUtil.put(LoginActivity.this, "isAutoLogin", true);
-
-        //将连接对象保存下来
-        IMService.conn = XmppUtil.getConnection();
-        IMService.ACCOUNT = username + "@" + IMService.conn.getServiceName();
-        //开启服务去获取监听数据
-        startService(new Intent(LoginActivity.this, IMService.class));
-        // 跳转到主页面
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-
-        finish();
+    @Override
+    public void setPresenter(LoginContract.Presenter presenter) {
+        this.mPresenter = presenter;
     }
 
+    @Override
+    public void showServerError() {
+        ToastUtil.showToastSafe(mActivity, getString(R.string.login_server_error));
+    }
+
+    @Override
+    public void showLoginError() {
+        ToastUtil.showToastSafe(mActivity, getString(R.string.login_error));
+    }
+
+    @Override
+    public void finishActivity() {
+        finish();
+    }
 }

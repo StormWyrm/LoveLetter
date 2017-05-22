@@ -27,14 +27,15 @@ import cn.qingfeng.loveletter.main.view.QuickIndexBar;
 
 
 /**
- * @AUTHER:       李青峰
- * @EMAIL:        1021690791@qq.com
- * @PHONE:        18045142956
- * @DATE:         2016/12/1 8:36
- * @DESC:         联系人
- * @VERSION:      V1.0
+ * @AUTHER: 李青峰
+ * @EMAIL: 1021690791@qq.com
+ * @PHONE: 18045142956
+ * @DATE: 2016/12/1 8:36
+ * @DESC: 联系人
+ * @VERSION: V1.0
  */
-public class ContactFragment extends BaseFragment {
+public class ContactFragment extends BaseFragment implements ContactContract.View, AdapterView.OnItemClickListener,
+        QuickIndexBar.OnLetterChangeListener {
 
     private ListViewWidthHeader mListView;
     private QuickIndexBar mQuickIndexBar;
@@ -42,6 +43,7 @@ public class ContactFragment extends BaseFragment {
 
     private ContentObserver mContentObserver = new MyContentObserver(new Handler());
     private MyCursorAdapter mCursorAdapter;
+    private ContactContract.Presenter mPresenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,87 +63,55 @@ public class ContactFragment extends BaseFragment {
         mListView = (ListViewWidthHeader) view.findViewById(R.id.listview);
         mQuickIndexBar = (QuickIndexBar) view.findViewById(R.id.quickIndexBar);
         mToast = (TextView) view.findViewById(R.id.toast);
+        mPresenter = new ContactPresenter(mActivity, this);
         return view;
     }
 
     @Override
     protected void initData() {
         super.initData();
-        setOrUpdateAdapter();
+        mPresenter.getContact();
     }
 
     @Override
-    protected void initListener() {
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Cursor cursor = mCursorAdapter.getCursor();
-                boolean b = cursor.moveToPosition(position);
-                if (b) {
-                    //将当前点击的联系人的数据带过去
-                    String account = cursor.getString(cursor.getColumnIndex(ContactOpenHelper.ContactTable.ACCOUNT));
-                    String nickname = cursor.getString(cursor.getColumnIndex(ContactOpenHelper.ContactTable.NICKNAME));
-                    Intent intent = new Intent(mActivity, DetailActivity.class);
-                    intent.putExtra(ContactOpenHelper.ContactTable.ACCOUNT, account);
-                    intent.putExtra(ContactOpenHelper.ContactTable.NICKNAME, nickname);
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Cursor cursor = mCursorAdapter.getCursor();
+        boolean b = cursor.moveToPosition(position);
+        if (b) {
+            //将当前点击的联系人的数据带过去
+            String account = cursor.getString(cursor.getColumnIndex(ContactOpenHelper.ContactTable.ACCOUNT));
+            String nickname = cursor.getString(cursor.getColumnIndex(ContactOpenHelper.ContactTable.NICKNAME));
+            Intent intent = new Intent(mActivity, DetailActivity.class);
+            intent.putExtra(ContactOpenHelper.ContactTable.ACCOUNT, account);
+            intent.putExtra(ContactOpenHelper.ContactTable.NICKNAME, nickname);
 
-                    startActivity(intent);
-                }
-            }
-        });
-        mQuickIndexBar.setOnLetterChangeListener(new QuickIndexBar.OnLetterChangeListener() {
-            @Override
-            public void onLetterChange(String letter) {
-                mToast.setVisibility(View.VISIBLE);
-                mToast.setText(letter);
-                ThreadUtil.runOnUiThreadDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mToast.setVisibility(View.GONE);
-                    }
-                }, 1500);
-
-                // 根据字母定位ListView, 找到集合中第一个以letter为拼音首字母的对象,得到索引
-                for (int i = 0; i < mCursorAdapter.getCount(); i++) {
-                    Cursor cursor = (Cursor) mCursorAdapter.getItem(i);
-                    String index = cursor.getString(cursor.getColumnIndex(ContactOpenHelper.ContactTable.PINYIN));
-                    index = index.substring(0, 1).toUpperCase();
-
-                    if (TextUtils.equals(letter, index)) {
-                        // 匹配成功
-                        mListView.setSelection(i + 1);
-                        break;
-                    }
-                }
-            }
-        });
+            startActivity(intent);
+        }
     }
 
-    //设置或者更新Adapter
-    private void setOrUpdateAdapter() {
-        // 判断adapter是否存在
-        if (mCursorAdapter != null) {
-            // 更新adpter
-            mCursorAdapter.getCursor().requery();
-            return;
-        }
-        ThreadUtil.runOnThread(new Runnable() {
+    @Override
+    public void onLetterChange(String letter) {
+        mToast.setVisibility(View.VISIBLE);
+        mToast.setText(letter);
+        ThreadUtil.runOnUiThreadDelayed(new Runnable() {
             @Override
             public void run() {
-                final Cursor cursor = getContext().getContentResolver().
-                        query(ContactProvider.URI_CONTACT, null,
-                                "my_account = ?",
-                                new String[]{IMService.ACCOUNT}, "pinyin ASC");
-
-                ThreadUtil.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mCursorAdapter = new MyCursorAdapter(mActivity, cursor);
-                        mListView.setAdapter(mCursorAdapter);
-                    }
-                });
+                mToast.setVisibility(View.GONE);
             }
-        });
+        }, 1500);
+
+        // 根据字母定位ListView, 找到集合中第一个以letter为拼音首字母的对象,得到索引
+        for (int i = 0; i < mCursorAdapter.getCount(); i++) {
+            Cursor cursor = (Cursor) mCursorAdapter.getItem(i);
+            String index = cursor.getString(cursor.getColumnIndex(ContactOpenHelper.ContactTable.PINYIN));
+            index = index.substring(0, 1).toUpperCase();
+
+            if (TextUtils.equals(letter, index)) {
+                // 匹配成功
+                mListView.setSelection(i + 1);
+                break;
+            }
+        }
     }
 
     /**
@@ -211,9 +181,33 @@ public class ContactFragment extends BaseFragment {
         public void onChange(boolean selfChange, Uri uri) {
             super.onChange(selfChange, uri);
             //数据发生改变的时候 刷新列表
-            setOrUpdateAdapter();
+            mPresenter.getContact();
         }
 
     }
+
+
+    @Override
+    public void setPresenter(ContactContract.Presenter presenter) {
+        this.mPresenter = presenter;
+    }
+
+    @Override
+    public void showContact(Cursor cursor) {
+        if (mCursorAdapter != null) {
+            // 更新adpter
+            mCursorAdapter.getCursor().requery();
+            return;
+        }
+
+        mCursorAdapter = new MyCursorAdapter(mActivity, cursor);
+        mListView.setAdapter(mCursorAdapter);
+    }
+
+
 }
+
+
+
+
 

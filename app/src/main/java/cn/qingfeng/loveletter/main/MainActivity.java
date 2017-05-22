@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import com.xys.libzxing.zxing.activity.CaptureActivity;
 
 import cn.qingfeng.loveletter.R;
+import cn.qingfeng.loveletter.addFriend.AddFriendActivity;
 import cn.qingfeng.loveletter.db.ContactOpenHelper;
 import cn.qingfeng.loveletter.main.util.FragmentFactory;
 import cn.qingfeng.loveletter.provider.ContactProvider;

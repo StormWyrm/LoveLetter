@@ -1,4 +1,4 @@
-package cn.qingfeng.loveletter.main;
+package cn.qingfeng.loveletter.addFriend;
 
 import android.content.Intent;
 import android.text.TextUtils;

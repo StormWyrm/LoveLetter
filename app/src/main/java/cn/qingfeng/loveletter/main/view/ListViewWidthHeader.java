@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import cn.qingfeng.loveletter.R;
-import cn.qingfeng.loveletter.main.AddFriendActivity;
+import cn.qingfeng.loveletter.addFriend.AddFriendActivity;
 import cn.qingfeng.loveletter.main.MainActivity;
 
 

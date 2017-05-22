@@ -26,23 +26,25 @@ import cn.qingfeng.loveletter.common.util.XmppUtil;
  * @VERSION:      V1.0
  */
 
-public class RegisterActivity extends BaseActivity {
-    private Toolbar mToolBar;
+public class RegisterActivity extends BaseActivity implements RegisterContract.View{
     private MyEditText mUsername;
     private MyEditText mPassword;
     private MyEditText mConfirmPassword;
     private Button mRegist;
+    private RegisterContract.Presenter mPresenter;
 
     @Override
     protected void initUi() {
         setContentView(R.layout.activity_register);
         addActionBar(getString(R.string.register_title),true);
 
-
         mRegist = (Button) findViewById(R.id.btn_regist);
         mUsername = (MyEditText) findViewById(R.id.username);
         mPassword = (MyEditText) findViewById(R.id.password);
         mConfirmPassword = (MyEditText) findViewById(R.id.confirmPassword);
+
+        mPresenter = new RegisterPresenter(this);
+
     }
 
     @Override
@@ -70,64 +72,53 @@ public class RegisterActivity extends BaseActivity {
                     return;
                 }
 
-                register(username, password);
+                mPresenter.register(username, password);
             }
         });
     }
 
-    private void register(final String username, final String password) {
-        ThreadUtil.runOnThread(new Runnable() {
+
+    @Override
+    public void setPresenter(RegisterContract.Presenter presenter) {
+        this.mPresenter = presenter;
+    }
+
+    @Override
+    public void serverError() {
+        ToastUtil.showToastSafe(RegisterActivity.this, getString(R.string.register_server_error));
+    }
+
+    @Override
+    public void registerSuccess(final String username, final String password) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+        builder.setMessage(R.string.register_dialog_message);
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
-            public void run() {
-                boolean b = XmppUtil.conServer();
-                if (!b) {
-                    ToastUtil.showToastSafe(RegisterActivity.this, getString(R.string.register_server_error));
-                    return;
-                }
-                int id = XmppUtil.regist(username, password);
-                switch (id) {
-                    case 0:
-                        //服务器出现异常
-                        ToastUtil.showToastSafe(RegisterActivity.this, getString(R.string.register_server_error));
-                        break;
-                    case 1:
-                        ThreadUtil.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                builder.setMessage(R.string.register_dialog_message);
-                                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        //注册成功
-                                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                        intent.putExtra("username", username);
-                                        intent.putExtra("password", password);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                });
-                                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                                builder.show();
-                            }
-                        });
-                        break;
-                    case 2:
-                        //用户已经存在
-                        ToastUtil.showToastSafe(RegisterActivity.this, getString(R.string.register_user_exist));
-                        break;
-                    case 3:
-                        //注册失败
-                        ToastUtil.showToastSafe(RegisterActivity.this, getString(R.string.resiter_failure));
-                        break;
-                }
+            public void onClick(DialogInterface dialog, int which) {
+                //注册成功
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                intent.putExtra("username", username);
+                intent.putExtra("password", password);
+                startActivity(intent);
+                finish();
             }
         });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 
+    @Override
+    public void registerFailure() {
+        ToastUtil.showToastSafe(RegisterActivity.this, getString(R.string.resiter_failure));
+    }
+
+    @Override
+    public void userExit() {
+        ToastUtil.showToastSafe(RegisterActivity.this, getString(R.string.register_user_exist));
+    }
 }

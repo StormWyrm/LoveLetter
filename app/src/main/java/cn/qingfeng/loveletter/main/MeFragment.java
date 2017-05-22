@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xys.libzxing.zxing.encoding.EncodingUtils;
@@ -19,14 +20,15 @@ import cn.qingfeng.loveletter.common.util.DensityUtil;
 
 
 /**
- * @AUTHER:       李青峰
- * @EMAIL:        1021690791@qq.com
- * @PHONE:        18045142956
- * @DATE:         2016/12/1 8:37
- * @DESC:         我的个人界面
- * @VERSION:      V1.0
+ * @AUTHER: 李青峰
+ * @EMAIL: 1021690791@qq.com
+ * @PHONE: 18045142956
+ * @DATE: 2016/12/1 8:37
+ * @DESC: 我的个人界面
+ * @VERSION: V1.0
  */
 public class MeFragment extends BaseFragment implements View.OnClickListener {
+    private LinearLayout ll_account;
     private TextView mNickname;
     private TextView mAccount;
     private SettingView mBtnSetting;
@@ -37,6 +39,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected View initUi() {
         View view = View.inflate(mActivity, R.layout.fragment_me, null);
+        ll_account = (LinearLayout) view.findViewById(R.id.ll_account);
         mNickname = (TextView) view.findViewById(R.id.nickname);
         mAccount = (TextView) view.findViewById(R.id.account);
         mBtnSetting = (SettingView) view.findViewById(R.id.setting);
@@ -57,6 +60,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     protected void initListener() {
         mBtnSetting.setOnClickListener(this);
         ivQRCode.setOnClickListener(this);
+        ll_account.setOnClickListener(this);
     }
 
 
@@ -67,6 +71,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(mActivity, SettingActivity.class));
                 break;
             case R.id.iv_qr_code:
+            case R.id.ll_account:
                 showQrCodeDialog();
                 break;
         }

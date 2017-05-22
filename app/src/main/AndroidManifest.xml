@@ -40,7 +40,7 @@
 
         <activity android:name=".setting.SettingActivity"/>
 
-        <activity android:name=".main.AddFriendActivity"/>
+        <activity android:name=".addFriend.AddFriendActivity"/>
 
         <activity android:name=".setting.MessageAlertActivity"/>
 
