@@ -1,6 +1,30 @@
 <resources>
     <string name="app_name">爱信</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
 
+
+    <string name="server_send_message_error">发送失败,请检查网络</string>
+    <string name="server_add_friend_request">好友添加申请</string>
+
+
+    <string name="splash_copyright">Copyright @2015-2016 爱信</string>
+
+
+    <string name="guide_enter_app">进入应用</string>
+
+
+    <string name="login_server_error">服务器出现异常,请重试</string>
+    <string name="login_autologin_error">自动登录失败,请重试</string>
+    <string name="login_username_or_password_empty">账号或密码不能为空</string>
+    <string name="login_error">登录失败,请重试</string>
+    <string name="login_unlogin">无法登录？</string>
+    <string name="login_username_hint">请输入账号</string>
+    <string name="login_password_hint">请输入密码</string>
+    <string name="login_login">登录</string>
+
+
+    <string name="register">注册</string>
     <string name="register_title">注册新用户</string>
     <string name="register_name_not_empty">用户名不能为空</string>
     <string name="register_password_not_empty">密码不能为空</string>
@@ -8,42 +32,33 @@
     <string name="register_password_inconsistent">前后密码不一致</string>
     <string name="register_server_error">服务器出现异常</string>
     <string name="register_dialog_message">注册成功,前去登录?</string>
-    <string name="ok">确定</string>
-    <string name="cancel">取消</string>
     <string name="register_user_exist">用户已存在</string>
     <string name="resiter_failure">注册失败,请重试</string>
-    <string name="login_server_error">服务器出现异常,请重试</string>
-    <string name="login_autologin_error">自动登录失败,请重试</string>
-    <string name="login_username_or_password_empty">账号或密码不能为空</string>
-    <string name="login_error">登录失败,请重试</string>
-    <string name="chat_send_message_error">发送失败</string>
-    <string name="main_search_account_empty">搜索账号不能为空</string>
-    <string name="main_search_title">添加好友</string>
+
+
     <string name="main_message_title">消息</string>
-    <string name="main_contact_title">通讯录</string>
+    <string name="main_message_no_message">无消息</string>
+    <string name="main_message_delete_record">删除该对话</string>
     <string name="main_me_title">我</string>
     <string name="main_me_message_nickname">昵称：</string>
     <string name="main_me_message_account">账户：</string>
-    <string name="server_send_message_error">发送失败,请检查网络</string>
-    <string name="server_add_friend_request">好友添加申请</string>
-    <string name="setting_title">设置</string>
-    <string name="main_menu_scan">扫一扫</string>
-    <string name="main_menu_add_friend">添加朋友</string>
+    <string name="main_me_qrcode_message">扫一扫上面的二维码,添加我的爱信</string>
+    <string name="main_contact_title">通讯录</string>
+    <string name="main_contact_new_friend">新的朋友</string>
+    <string name="main_search_account_empty">搜索账号不能为空</string>
+    <string name="main_search_title">添加好友</string>
     <string name="main_search_acount_hint">请输入账号</string>
     <string name="main_search_add">添加</string>
-    <string name="chat_send">发送</string>
-    <string name="guide_enter_app">进入应用</string>
-    <string name="setting_new_message_title">新消息提醒</string>
-    <string name="login_unlogin">无法登录？</string>
-    <string name="login_username_hint">请输入账号</string>
-    <string name="login_password_hint">请输入密码</string>
-    <string name="login_login">登录</string>
-    <string name="register">注册</string>
-    <string name="splash_copyright">Copyright @2015-2016 爱信</string>
-    <string name="main_message_no_message">无消息</string>
-    <string name="main_contact_new_friend">新的朋友</string>
+    <string name="main_menu_scan">扫一扫</string>
+    <string name="main_menu_add_friend">添加朋友</string>
+
+
+    <string name="setting_title">设置</string>
     <string name="setting_dialog_exit_account">退出当前账号</string>
     <string name="setting_dialog_close_app">关闭爱信</string>
-    <string name="main_message_delete_record">删除该对话</string>
-    <string name="main_me_qrcode_message">扫一扫上面的二维码,添加我的爱信</string>
+    <string name="setting_new_message_title">新消息提醒</string>
+
+
+    <string name="chat_send">发送</string>
+    <string name="chat_send_message_error">发送失败</string>
 </resources>

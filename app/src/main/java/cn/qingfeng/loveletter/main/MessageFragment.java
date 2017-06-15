@@ -1,7 +1,5 @@
 package cn.qingfeng.loveletter.main;
 
-import android.content.Context;
-import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.drawable.BitmapDrawable;
@@ -9,7 +7,6 @@ import android.net.Uri;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CursorAdapter;
@@ -18,21 +15,12 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import cn.qingfeng.loveletter.R;
-import cn.qingfeng.loveletter.common.util.ThreadUtil;
-import cn.qingfeng.loveletter.db.ContactOpenHelper;
+import cn.qingfeng.loveletter.common.ui.BaseFragment;
 import cn.qingfeng.loveletter.db.SmsOpenHelper;
 import cn.qingfeng.loveletter.main.adapter.MessageCursorAdapter;
-import cn.qingfeng.loveletter.provider.ContactProvider;
 import cn.qingfeng.loveletter.provider.SmsProvider;
 import cn.qingfeng.loveletter.service.IMService;
-import cn.qingfeng.loveletter.chat.ChatActivity;
-import cn.qingfeng.loveletter.common.ui.BaseFragment;
-import cn.qingfeng.loveletter.common.util.EmotionUtil;
-import cn.qingfeng.loveletter.common.util.SpanStringUtil;
 
 
 /**
@@ -78,6 +66,13 @@ public class MessageFragment extends BaseFragment implements MessageContract.Vie
         super.initData();
         //更新数据
         mPresenter.getContact();
+    }
+
+    @Override
+    protected void initListener() {
+        super.initListener();
+        mListView.setOnItemClickListener(this);
+        mListView.setOnItemLongClickListener(this);
     }
 
     @Override

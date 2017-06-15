@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,7 @@ public abstract class BaseFragment extends Fragment {
     private static final String TAG = "BaseFragment";
     private boolean isViewCreate;//判断view是否已经创建
     private boolean isDataLoad;//判断数据是否加载过
-    protected BaseActivity mActivity;
+    protected AppCompatActivity mActivity;
     protected View mContentView;
 
     @Override
@@ -35,7 +36,7 @@ public abstract class BaseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (mActivity == null) {
-            mActivity = (BaseActivity) getActivity();
+            mActivity = (AppCompatActivity) getActivity();
         }
         Log.i(TAG, this+ "onCreate: ");
     }

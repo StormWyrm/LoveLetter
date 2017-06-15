@@ -16,14 +16,13 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import cn.qingfeng.loveletter.R;
-import cn.qingfeng.loveletter.common.util.ThreadUtil;
-import cn.qingfeng.loveletter.db.ContactOpenHelper;
-import cn.qingfeng.loveletter.provider.ContactProvider;
-import cn.qingfeng.loveletter.service.IMService;
 import cn.qingfeng.loveletter.chat.DetailActivity;
 import cn.qingfeng.loveletter.common.ui.BaseFragment;
+import cn.qingfeng.loveletter.common.util.ThreadUtil;
+import cn.qingfeng.loveletter.db.ContactOpenHelper;
 import cn.qingfeng.loveletter.main.view.ListViewWidthHeader;
 import cn.qingfeng.loveletter.main.view.QuickIndexBar;
+import cn.qingfeng.loveletter.provider.ContactProvider;
 
 
 /**
@@ -74,19 +73,26 @@ public class ContactFragment extends BaseFragment implements ContactContract.Vie
     }
 
     @Override
+    protected void initListener() {
+        super.initListener();
+        mListView.setOnItemClickListener(this);
+        mQuickIndexBar.setOnLetterChangeListener(this);
+    }
+
+    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Cursor cursor = mCursorAdapter.getCursor();
-        boolean b = cursor.moveToPosition(position);
-        if (b) {
-            //将当前点击的联系人的数据带过去
-            String account = cursor.getString(cursor.getColumnIndex(ContactOpenHelper.ContactTable.ACCOUNT));
-            String nickname = cursor.getString(cursor.getColumnIndex(ContactOpenHelper.ContactTable.NICKNAME));
-            Intent intent = new Intent(mActivity, DetailActivity.class);
-            intent.putExtra(ContactOpenHelper.ContactTable.ACCOUNT, account);
-            intent.putExtra(ContactOpenHelper.ContactTable.NICKNAME, nickname);
+        cursor.moveToPosition(position);
 
-            startActivity(intent);
-        }
+        //将当前点击的联系人的数据带过去
+        String account = cursor.getString(cursor.getColumnIndex(ContactOpenHelper.ContactTable.ACCOUNT));
+        String nickname = cursor.getString(cursor.getColumnIndex(ContactOpenHelper.ContactTable.NICKNAME));
+        Intent intent = new Intent(mActivity, DetailActivity.class);
+        intent.putExtra(ContactOpenHelper.ContactTable.ACCOUNT, account);
+        intent.putExtra(ContactOpenHelper.ContactTable.NICKNAME, nickname);
+
+        startActivity(intent);
+
     }
 
     @Override

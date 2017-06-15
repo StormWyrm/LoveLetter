@@ -1,19 +1,14 @@
 package cn.qingfeng.loveletter.chat;
 
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -33,8 +28,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.jivesoftware.smack.packet.Message;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -42,8 +35,6 @@ import cn.qingfeng.loveletter.R;
 import cn.qingfeng.loveletter.common.AppApplication;
 import cn.qingfeng.loveletter.common.util.EmotionUtil;
 import cn.qingfeng.loveletter.common.util.SpanStringUtil;
-import cn.qingfeng.loveletter.common.util.ThreadUtil;
-import cn.qingfeng.loveletter.common.util.ToastUtil;
 import cn.qingfeng.loveletter.db.ContactOpenHelper;
 import cn.qingfeng.loveletter.db.SmsOpenHelper;
 import cn.qingfeng.loveletter.provider.SmsProvider;
@@ -58,7 +49,7 @@ import cn.qingfeng.loveletter.service.IMService;
  * @DESC: 聊天界面的实现
  * @VERSION: V1.0
  */
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity implements ChatContract.View, View.OnClickListener {
     private ListView mListView;
     private EditText etChatMessage;
     private Button btnSend;
@@ -74,43 +65,30 @@ public class ChatActivity extends AppCompatActivity {
     private String mClickNickname;
     private ContentObserver mContentObserver = new MyContentObserver(new Handler());//数据库的观察者
     private MyCursorAdapter mCursorAdapter;
-    private IBinder.DeathRecipient mDeathRecipient = new IBinder.DeathRecipient() {
-        @Override
-        public void binderDied() {
-            myBinder.unlinkToDeath(mDeathRecipient, 0);
-            myBinder = null;
-            bindService(new Intent(ChatActivity.this,IMService.class),mServiceConnection, Context.BIND_AUTO_CREATE);
-        }
-    };
-    private ServiceConnection mServiceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            myBinder = (IMService.MyBinder) iBinder;
-            myBinder.linkToDeath(mDeathRecipient, 0);
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-
-        }
-    };
-    private IMService.MyBinder myBinder;//服务
     private ActionBar mActionBar;
+    private ChatContract.Presenter mPresenter;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppApplication.getInstance().addActivity(this);
+        //注册内容观察者
+        getContentResolver().registerContentObserver(SmsProvider.URI_SMS, true, mContentObserver);
+        //绑定服务
+        mPresenter = new ChatPresenter(this, this);
+        mPresenter.bindIMService();
         initUi();
         initData();
         initListener();
+
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         AppApplication.getInstance().removeActivity(this);
         getContentResolver().unregisterContentObserver(mContentObserver);
         //解除绑定
-        unbindService(mServiceConnection);
+        mPresenter.unbindIMService();
     }
 
     protected void initUi() {
@@ -125,6 +103,7 @@ public class ChatActivity extends AppCompatActivity {
         fl_emotion = (FrameLayout) findViewById(R.id.fl_emotion);
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
+
         //获取用户名以及账号
         Intent intent = getIntent();
         if (intent != null) {
@@ -132,89 +111,17 @@ public class ChatActivity extends AppCompatActivity {
             mClickNickname = intent.getStringExtra(ContactOpenHelper.ContactTable.NICKNAME);
             mActionBar.setTitle(mClickNickname);//更改actionBar的名称
         }
-
-
-        //注册内容观察者
-        getContentResolver().registerContentObserver(SmsProvider.URI_SMS, true, mContentObserver);
-
-        //绑定服务
-        bindService(new Intent(ChatActivity.this,IMService.class),mServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
     protected void initData() {
-        setOrUpdateAdapter();
+        mPresenter.getDialogueMessage(mClickAccount);
     }
 
     protected void initListener() {
-        //发送消息
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendMessage();
-            }
-        });
-        //点击表情
-        iv_emotion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!isMoreShowing) {
-                    if (!isEmotionShowing) {
-                        fl_emotion.setVisibility(View.VISIBLE);
-                        imm.hideSoftInputFromWindow(etChatMessage.getWindowToken(), 0);
-                        isEmotionShowing = true;
-                        isMoreShowing = false;
-                        showEmotionFragment();
-
-                    } else {
-                        fl_emotion.setVisibility(View.GONE);
-                        imm.showSoftInput(etChatMessage, InputMethodManager.SHOW_IMPLICIT);
-                        isEmotionShowing = false;
-                        isMoreShowing = false;
-                    }
-                } else {
-                    showEmotionFragment();
-                    isEmotionShowing = true;
-                    isMoreShowing = false;
-                }
-            }
-        });
-
-        //点击加号
-        iv_more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!isEmotionShowing) {
-                    if (!isMoreShowing) {
-                        fl_emotion.setVisibility(View.VISIBLE);
-                        imm.hideSoftInputFromWindow(etChatMessage.getWindowToken(), 0);
-                        isEmotionShowing = false;
-                        isMoreShowing = true;
-                        showMoreFrament();
-
-                    } else {
-                        fl_emotion.setVisibility(View.GONE);
-                        imm.showSoftInput(etChatMessage, InputMethodManager.SHOW_IMPLICIT);
-                        isEmotionShowing = false;
-                        isMoreShowing = false;
-                    }
-                } else {
-                    showMoreFrament();
-                    isEmotionShowing = false;
-                    isMoreShowing = true;
-                }
-            }
-        });
-        //点击EditText的时候 让表情界面消失
-        etChatMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isEmotionShowing | isMoreShowing) {
-                    fl_emotion.setVisibility(View.GONE);
-                    isEmotionShowing = false;
-                    isMoreShowing = false;
-                }
-            }
-        });
+        btnSend.setOnClickListener(this);
+        iv_emotion.setOnClickListener(this);
+        iv_more.setOnClickListener(this);
+        etChatMessage.setOnClickListener(this);
         etChatMessage.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -253,7 +160,6 @@ public class ChatActivity extends AppCompatActivity {
                 return false;
             }
         });
-
 
     }
 
@@ -300,99 +206,71 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
+    //改变表情界面状态
+    private void changeEmotionStatus() {
+        if (!isMoreShowing) {
+            if (!isEmotionShowing) {
+                fl_emotion.setVisibility(View.VISIBLE);
+                imm.hideSoftInputFromWindow(etChatMessage.getWindowToken(), 0);
+                isEmotionShowing = true;
+                isMoreShowing = false;
+                showEmotionFragment();
+
+            } else {
+                fl_emotion.setVisibility(View.GONE);
+                imm.showSoftInput(etChatMessage, InputMethodManager.SHOW_IMPLICIT);
+                isEmotionShowing = false;
+                isMoreShowing = false;
+            }
+        } else {
+            showEmotionFragment();
+            isEmotionShowing = true;
+            isMoreShowing = false;
+        }
+    }
+
+    //点击选择更多
+    private void selectMore() {
+        if (!isEmotionShowing) {
+            if (!isMoreShowing) {
+                fl_emotion.setVisibility(View.VISIBLE);
+                imm.hideSoftInputFromWindow(etChatMessage.getWindowToken(), 0);
+                isEmotionShowing = false;
+                isMoreShowing = true;
+                showMoreFrament();
+
+            } else {
+                fl_emotion.setVisibility(View.GONE);
+                imm.showSoftInput(etChatMessage, InputMethodManager.SHOW_IMPLICIT);
+                isEmotionShowing = false;
+                isMoreShowing = false;
+            }
+        } else {
+            showMoreFrament();
+            isEmotionShowing = false;
+            isMoreShowing = true;
+        }
+    }
+
     /**
      * 显示表情界面
      */
     private void showEmotionFragment() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fl_emotion, new ChatEmotionFragment());
-        transaction.commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fl_emotion, new ChatEmotionFragment())
+                .commit();
     }
 
     /**
      * 显示更多界面
      */
     private void showMoreFrament() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fl_emotion, new ChatMoreFragment());
-        transaction.commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fl_emotion, new ChatMoreFragment())
+                .commit();
     }
-
-    /**
-     * 发送消息
-     */
-    private void sendMessage() {
-        final String body = etChatMessage.getText().toString();
-        if (!TextUtils.isEmpty(body)) {
-            ThreadUtil.runOnThread(new Runnable() {
-                @Override
-                public void run() {  //发送消息的三个步骤
-
-                    //3.创建消息对象
-                    Message msg = new Message();
-                    msg.setFrom(IMService.ACCOUNT);
-                    msg.setTo(mClickAccount);
-                    msg.setBody(body);
-                    msg.setType(Message.Type.chat);
-                    msg.setProperty("key", "value");
-
-                    //发送消息 并保存消息 通过绑定服务调用服务中的方法
-                    if (myBinder != null) {
-                        myBinder.sendMessage(msg);
-                    } else {
-                        ToastUtil.showToastSafe(ChatActivity.this, getString(R.string.chat_send_message_error));
-                    }
-
-                    ThreadUtil.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            etChatMessage.setText("");
-                        }
-                    });
-                }
-            });
-        }
-    }
-
-    /**
-     * 设置或更新Adapter
-     */
-    private void setOrUpdateAdapter() {
-        if (mCursorAdapter != null) {
-            Cursor cursor = mCursorAdapter.getCursor();
-            cursor.requery();
-
-            mListView.setSelection(cursor.getCount() - 1);//让ListView到达最后一列
-            return;
-        }
-        ThreadUtil.runOnThread(new Runnable() {
-            @Override
-            public void run() {
-                final Cursor c = getContentResolver().query(
-                        SmsProvider.URI_SMS, null,
-                        "(from_account = ? and to_account = ?) or (from_account = ? and to_account = ?)",
-                        new String[]{IMService.ACCOUNT, mClickAccount, mClickAccount, IMService.ACCOUNT}, null);
-
-                if (c.getCount() < 1) {
-                    System.out.println("没有查询到数据");
-                    return;
-                }
-
-                ThreadUtil.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mCursorAdapter = new MyCursorAdapter(ChatActivity.this, c);
-                        mListView.setAdapter(mCursorAdapter);
-                        mListView.setSelection(mCursorAdapter.getCount() - 1);
-                    }
-                });
-            }
-        });
-
-    }
-
 
     @Override
     public void onBackPressed() {
@@ -408,6 +286,30 @@ public class ChatActivity extends AppCompatActivity {
         }
         super.onBackPressed();
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_send:
+                mPresenter.sendMessage(mClickAccount);
+                break;
+            case R.id.iv_emotion:
+                changeEmotionStatus();
+                break;
+            case R.id.iv_more:
+                selectMore();
+                break;
+            case R.id.et_chat_message:
+                //隐藏表情界面
+                if (isEmotionShowing | isMoreShowing) {
+                    fl_emotion.setVisibility(View.GONE);
+                    isEmotionShowing = false;
+                    isMoreShowing = false;
+                }
+                break;
+        }
+    }
+
 
     /**
      * ListView的适配器
@@ -499,7 +401,8 @@ public class ChatActivity extends AppCompatActivity {
             holder.time.setText(formatTime);
 
             //使用SpanImage代替特殊字符
-            SpannableString emotionContent = SpanStringUtil.getEmotionContent(EmotionUtil.EMOTION_CLASSIC_TYPE, ChatActivity.this, holder.body, body);
+            SpannableString emotionContent = SpanStringUtil.getEmotionContent(EmotionUtil.EMOTION_CLASSIC_TYPE,
+                    ChatActivity.this, holder.body, body);
             holder.body.setText(emotionContent);
 
 
@@ -519,22 +422,47 @@ public class ChatActivity extends AppCompatActivity {
      * SmsOpenHelper的观察者
      */
     private class MyContentObserver extends ContentObserver {
-        /**
-         * Creates a content observer.
-         *
-         * @param handler The handler to run {@link #onChange} on, or null if none.
-         */
         public MyContentObserver(Handler handler) {
             super(handler);
         }
 
         @Override
         public void onChange(boolean selfChange, Uri uri) {
-            System.out.println("观察到改变");
-            setOrUpdateAdapter();
             super.onChange(selfChange, uri);
-
+            System.out.println("观察到改变");
+            mPresenter.getDialogueMessage(mClickAccount);
         }
     }
+
+
+    @Override
+    public void setPresenter(ChatContract.Presenter presenter) {
+        this.mPresenter = presenter;
+    }
+
+    @Override
+    public void showDialogueMessage(Cursor cursor) {
+        if (mCursorAdapter != null) {
+            mCursorAdapter.getCursor().requery();
+            mListView.setSelection(cursor.getCount() - 1);//让ListView到达最后一列
+            return;
+        }
+
+        mCursorAdapter = new MyCursorAdapter(ChatActivity.this, cursor);
+        mListView.setAdapter(mCursorAdapter);
+        mListView.setSelection(mCursorAdapter.getCount() - 1);
+
+    }
+
+    @Override
+    public String getMessage() {
+        return getText();
+    }
+
+    @Override
+    public void clearMessage() {
+        etChatMessage.setText("");
+    }
+
 
 }

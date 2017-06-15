@@ -13,15 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import cn.qingfeng.loveletter.R;
-import cn.qingfeng.loveletter.common.util.ThreadUtil;
-import cn.qingfeng.loveletter.common.util.ToastUtil;
-import cn.qingfeng.loveletter.main.MainActivity;
-import cn.qingfeng.loveletter.service.IMService;
 import cn.qingfeng.loveletter.common.ui.BaseActivity;
-import cn.qingfeng.loveletter.register.RegisterActivity;
 import cn.qingfeng.loveletter.common.ui.view.MyEditText;
 import cn.qingfeng.loveletter.common.util.SPUtil;
-import cn.qingfeng.loveletter.common.util.XmppUtil;
+import cn.qingfeng.loveletter.common.util.ToastUtil;
 
 
 /**
@@ -95,7 +90,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         mRegist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.register();
+                mPresenter.jumpToRegisterPage();
             }
         });
     }

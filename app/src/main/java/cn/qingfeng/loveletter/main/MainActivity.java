@@ -1,10 +1,15 @@
 package cn.qingfeng.loveletter.main;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -16,23 +21,23 @@ import com.xys.libzxing.zxing.activity.CaptureActivity;
 
 import cn.qingfeng.loveletter.R;
 import cn.qingfeng.loveletter.addFriend.AddFriendActivity;
+import cn.qingfeng.loveletter.chat.DetailActivity;
+import cn.qingfeng.loveletter.common.ui.BaseActivity;
+import cn.qingfeng.loveletter.common.ui.BaseFragment;
+import cn.qingfeng.loveletter.common.util.ToastUtil;
 import cn.qingfeng.loveletter.db.ContactOpenHelper;
 import cn.qingfeng.loveletter.main.util.FragmentFactory;
 import cn.qingfeng.loveletter.provider.ContactProvider;
 import cn.qingfeng.loveletter.service.IMService;
-import cn.qingfeng.loveletter.common.ui.BaseActivity;
-import cn.qingfeng.loveletter.common.ui.BaseFragment;
-import cn.qingfeng.loveletter.chat.DetailActivity;
-import cn.qingfeng.loveletter.common.util.ToastUtil;
 
 
 /**
- * @AUTHER:       李青峰
- * @EMAIL:        1021690791@qq.com
- * @PHONE:        18045142956
- * @DATE:         2016/12/1 8:30
- * @DESC:         应用程序的主界面
- * @VERSION:      V1.0
+ * @AUTHER: 李青峰
+ * @EMAIL: 1021690791@qq.com
+ * @PHONE: 18045142956
+ * @DATE: 2016/12/1 8:30
+ * @DESC: 应用程序的主界面
+ * @VERSION: V1.0
  */
 public class MainActivity extends BaseActivity {
 
@@ -70,7 +75,13 @@ public class MainActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.scan:
-                startActivityForResult(new Intent(this, CaptureActivity.class), 0);
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager
+                        .PERMISSION_GRANTED) {
+                    startActivityForResult(new Intent(this, CaptureActivity.class), 0);
+                } else {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 0);
+                }
+
                 break;
             case R.id.add_friend:
                 startActivity(new Intent(MainActivity.this, AddFriendActivity.class));
@@ -104,11 +115,13 @@ public class MainActivity extends BaseActivity {
                     startActivity(intent);
                 } else {
                     while (cursor.moveToNext()) {
-                        String nickname = cursor.getString(cursor.getColumnIndex(ContactOpenHelper.ContactTable.NICKNAME));
+                        String nickname = cursor.getString(cursor.getColumnIndex(ContactOpenHelper.ContactTable
+                                .NICKNAME));
                         if (nickname.equals(username)) {
                             //已经添加过 跳转到详细信息界面
                             Intent intent = new Intent(this, DetailActivity.class);
-                            intent.putExtra(ContactOpenHelper.ContactTable.ACCOUNT, username + "@" + IMService.conn.getServiceName());
+                            intent.putExtra(ContactOpenHelper.ContactTable.ACCOUNT, username + "@" + IMService.conn
+                                    .getServiceName());
                             intent.putExtra(ContactOpenHelper.ContactTable.NICKNAME, username);
                             startActivity(intent);
                             return;
@@ -122,6 +135,18 @@ public class MainActivity extends BaseActivity {
             } else {
                 ToastUtil.showToast(this, "扫描结果为：" + result);
             }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[]
+            grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 0 && grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            startActivityForResult(new Intent(this, CaptureActivity.class), 0);
+        }else{
+            ToastUtil.showToast(this,"没有访问相机权限");
         }
     }
 

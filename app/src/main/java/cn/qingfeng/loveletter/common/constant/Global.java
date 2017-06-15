@@ -10,6 +10,6 @@ package cn.qingfeng.loveletter.common.constant;
  * @VERSION:      V1.0
  */
 public class Global {
-    public static final String HOST = "192.168.1.104";
+    public static final String HOST = "192.168.1.17";
     public static final int PORT = 5222;
 }
