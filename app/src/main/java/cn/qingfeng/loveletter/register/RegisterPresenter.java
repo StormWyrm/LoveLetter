@@ -1,5 +1,7 @@
 package cn.qingfeng.loveletter.register;
 
+import cn.qingfeng.loveletter.common.AppApplication;
+import cn.qingfeng.loveletter.common.util.SPUtil;
 import cn.qingfeng.loveletter.common.util.ThreadUtil;
 import cn.qingfeng.loveletter.common.util.XmppUtil;
 
@@ -16,10 +18,11 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     }
 
     @Override
-    public void register(final String username, final String password) {
+    public void register(final String username, final String password, final String ip) {
         ThreadUtil.runOnThread(new Runnable() {
             @Override
             public void run() {
+                SPUtil.put(AppApplication.getInstance(),"ip",ip);
                 boolean b = XmppUtil.conServer();
                 if (!b) {
                     mView.serverError();
@@ -35,7 +38,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
                         ThreadUtil.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                mView.registerSuccess(username, password);
+                                mView.registerSuccess(username, password,ip);
                             }
                         });
                         break;

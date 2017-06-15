@@ -61,4 +61,6 @@
 
     <string name="chat_send">发送</string>
     <string name="chat_send_message_error">发送失败</string>
+    <string name="login_password_ip">服务器</string>
+    <string name="login_password_ip_error">IP地址不能为空</string>
 </resources>

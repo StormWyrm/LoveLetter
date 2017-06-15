@@ -9,13 +9,13 @@ import cn.qingfeng.loveletter.common.ui.BaseView;
 
 public class RegisterContract {
     public interface Presenter extends BasePresenter {
-        void register(String username, String password);
+        void register(String username, String password, String ip);
     }
 
     public interface View extends BaseView<RegisterContract.Presenter> {
         void serverError();
 
-        void registerSuccess(String username, String password);
+        void registerSuccess(String username, String password,String ip);
 
         void registerFailure();
 

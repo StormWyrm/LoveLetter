@@ -32,6 +32,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     private LinearLayout linearLayout;
     private MyEditText mUsername;
     private MyEditText mPassword;
+    private MyEditText mIP;
     private Button mLogin;
     private TextView mRegist;
 
@@ -43,6 +44,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         linearLayout = (LinearLayout) findViewById(R.id.ll_login);
         mUsername = (MyEditText) findViewById(R.id.username);
         mPassword = (MyEditText) findViewById(R.id.password);
+        mIP = (MyEditText) findViewById(R.id.ip);
         mLogin = (Button) findViewById(R.id.btn_login);
         mRegist = (TextView) findViewById(R.id.tv_regist);
 
@@ -53,20 +55,25 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     protected void initData() {
-        //获取注册页面的intent 并将用户的注册信息填写
-        Intent intent = getIntent();
-        if (intent != null) {
-            String username = intent.getStringExtra("username");
-            String password = intent.getStringExtra("password");
-            mUsername.setText(username);
-            mPassword.setText(password);
-        }
-
         //获取上次登录的账号密码
         String username = (String) SPUtil.get(LoginActivity.this, "username", "");
         String password = (String) SPUtil.get(LoginActivity.this, "password", "");
+        String ip = (String) SPUtil.get(LoginActivity.this, "ip", "");
         mUsername.setText(username);
         mPassword.setText(password);
+        mIP.setText(ip);
+
+
+        //获取注册页面的intent 并将用户的注册信息填写
+        Intent intent = getIntent();
+        if (intent != null) {
+            username = intent.getStringExtra("username");
+            password = intent.getStringExtra("password");
+            ip = intent.getStringExtra("ip");
+            mUsername.setText(username);
+            mPassword.setText(password);
+            mIP.setText(ip);
+        }
 
     }
 
@@ -78,11 +85,12 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             public void onClick(View v) {
                 final String username = mUsername.getText().toString();
                 final String password = mPassword.getText().toString();
+                final String ip = mIP.getText().toString();
                 if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
                     ToastUtil.showToast(LoginActivity.this, getString(R.string.login_username_or_password_empty));
                     return;
                 }
-                mPresenter.login(username, password);
+                mPresenter.login(username, password,ip);
 
             }
         });

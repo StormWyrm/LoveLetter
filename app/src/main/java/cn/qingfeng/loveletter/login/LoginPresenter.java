@@ -1,20 +1,14 @@
 package cn.qingfeng.loveletter.login;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 
-import cn.qingfeng.loveletter.R;
-import cn.qingfeng.loveletter.common.ui.BasePresenter;
-import cn.qingfeng.loveletter.common.ui.BaseView;
 import cn.qingfeng.loveletter.common.util.SPUtil;
 import cn.qingfeng.loveletter.common.util.ThreadUtil;
-import cn.qingfeng.loveletter.common.util.ToastUtil;
 import cn.qingfeng.loveletter.common.util.XmppUtil;
 import cn.qingfeng.loveletter.main.MainActivity;
 import cn.qingfeng.loveletter.register.RegisterActivity;
 import cn.qingfeng.loveletter.service.IMService;
-import cn.qingfeng.loveletter.splash.SplashContract;
 
 /**
  * Created by liqingfeng on 2017/5/22.
@@ -31,10 +25,12 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void login(final String username, final String password) {
+    public void login(final String username, final String password,final String ip) {
         ThreadUtil.runOnThread(new Runnable() {
             @Override
             public void run() {
+                SPUtil.put(mActivity,"ip",ip);
+
                 boolean conServer = XmppUtil.conServer();
                 if (!conServer) {
                     mView.showServerError();
@@ -51,6 +47,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                 //把登录账号保存到本地 方便自动登录
                 SPUtil.put(mActivity, "username", username);
                 SPUtil.put(mActivity, "password", password);
+
 
                 //设置自动登录
                 SPUtil.put(mActivity, "isAutoLogin", true);

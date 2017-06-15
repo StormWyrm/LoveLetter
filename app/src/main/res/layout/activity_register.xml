@@ -10,7 +10,7 @@
     <include layout="@layout/layout_toolbar" />
 
 
-    <cn.qingfeng.aixin.ui.view.MyEditText
+    <cn.qingfeng.loveletter.common.ui.view.MyEditText
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         android:layout_marginTop="40dp"
         app:hint="请输入账号" />
 
-    <cn.qingfeng.aixin.ui.view.MyEditText
+    <cn.qingfeng.loveletter.common.ui.view.MyEditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
         app:hint="请输入密码"
         app:passwordType="text" />
 
-    <cn.qingfeng.aixin.ui.view.MyEditText
+    <cn.qingfeng.loveletter.common.ui.view.MyEditText
         android:id="@+id/confirmPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,6 +38,15 @@
         android:layout_marginTop="15dp"
         app:hint="请确认密码"
         app:passwordType="text" />
+
+    <cn.qingfeng.loveletter.common.ui.view.MyEditText
+        android:id="@+id/ip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        app:hint="服务器" />
 
     <Button
         android:id="@+id/btn_regist"

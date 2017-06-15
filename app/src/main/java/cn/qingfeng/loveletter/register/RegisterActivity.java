@@ -3,18 +3,17 @@ package cn.qingfeng.loveletter.register;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
 import cn.qingfeng.loveletter.R;
+import cn.qingfeng.loveletter.common.AppApplication;
 import cn.qingfeng.loveletter.common.ui.BaseActivity;
-import cn.qingfeng.loveletter.common.util.ThreadUtil;
+import cn.qingfeng.loveletter.common.ui.view.MyEditText;
+import cn.qingfeng.loveletter.common.util.SPUtil;
 import cn.qingfeng.loveletter.common.util.ToastUtil;
 import cn.qingfeng.loveletter.login.LoginActivity;
-import cn.qingfeng.loveletter.common.ui.view.MyEditText;
-import cn.qingfeng.loveletter.common.util.XmppUtil;
 
 
 /**
@@ -30,6 +29,7 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
     private MyEditText mUsername;
     private MyEditText mPassword;
     private MyEditText mConfirmPassword;
+    private MyEditText mIp;
     private Button mRegist;
     private RegisterContract.Presenter mPresenter;
 
@@ -42,6 +42,8 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
         mUsername = (MyEditText) findViewById(R.id.username);
         mPassword = (MyEditText) findViewById(R.id.password);
         mConfirmPassword = (MyEditText) findViewById(R.id.confirmPassword);
+        mIp = (MyEditText) findViewById(R.id.ip);
+        mIp.setText((String) SPUtil.get(AppApplication.getInstance(), "ip", "192.168.0.1"));
 
         mPresenter = new RegisterPresenter(this);
 
@@ -55,6 +57,7 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
                 final String username = mUsername.getText().toString();
                 final String password = mPassword.getText().toString();
                 String confirmPassword = mConfirmPassword.getText().toString();
+                String ip = mIp.getText();
                 if (TextUtils.isEmpty(username)) {
                     ToastUtil.showToast(RegisterActivity.this, getString(R.string.register_name_not_empty));
                     return;
@@ -71,8 +74,12 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
                     ToastUtil.showToast(RegisterActivity.this, getString(R.string.register_password_inconsistent));
                     return;
                 }
+                if (TextUtils.isEmpty(ip)) {
+                    ToastUtil.showToast(RegisterActivity.this, getString(R.string.login_password_ip_error));
+                    return;
+                }
 
-                mPresenter.register(username, password);
+                mPresenter.register(username, password,ip);
             }
         });
     }
@@ -89,7 +96,7 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
     }
 
     @Override
-    public void registerSuccess(final String username, final String password) {
+    public void registerSuccess(final String username, final String password, final String ip) {
         AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
         builder.setMessage(R.string.register_dialog_message);
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
@@ -99,6 +106,7 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 intent.putExtra("username", username);
                 intent.putExtra("password", password);
+                intent.putExtra("ip",ip);
                 startActivity(intent);
                 finish();
             }
