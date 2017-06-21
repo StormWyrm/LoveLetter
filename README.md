@@ -61,5 +61,5 @@
 
 ### 五.app的使用
 
-    在您的电脑上安装openfire服务器 并在cn/qingfeng/aixin/service/Global.java修改本地ip便可以使用该app
+    在您的电脑上安装openfire服务器并开启,并在登录或注册时填写本地服务器地址即可使用。
 
