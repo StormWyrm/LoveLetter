@@ -1,5 +1,6 @@
 package cn.qingfeng.loveletter.splash;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -41,6 +42,7 @@ public class SplashPresenter implements SplashContract.Presenter {
                 jumpToLoginPage();
             }
         }
+        ((Activity)mContext).finish();
 
     }
 
