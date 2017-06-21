@@ -33,7 +33,7 @@
 
  * 登录界面：
 
-    ![](screenshots/登陆界面.png)  
+    ![](screenshots/登录界面.png)
 
  *  消息界面:
 
@@ -45,7 +45,11 @@
 
  * 个人界面:
 
-    ![](screenshots/个人界面.png)
+    ![](screenshots/个人界面.png)  
+
+ * 个人二维码信息：
+
+	![](screenshots/个人二维码.png)
 
  * 设置界面:
 
