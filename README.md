@@ -1,11 +1,10 @@
 # Loveletter
-一款基于XMPP协议的即时聊天软件，使用MVP模式来进行项目架构
+一款基于XMPP协议的即时聊天软件，使用MVP模式作为该项目的基本架构 
 ### 一.项目模块：
   1. 登录模块
     * 闪屏页面
     * 引导页面    app引导界面
     * 登录页面    用户登录
-    * 注册页面    用户的注册
   2. 主功能模块
     * 消息界面    显示本地缓存的消息记录
     * 联系人界面  登录用户的好友列表
@@ -27,38 +26,36 @@
   4. 二维码扫描添加好友
 
 ### 四.app截图:
-  * 注册界面：
 
-    ![](screenshots/注册界面.png)
+ * 注册界面：
 
-  * 登录界面：
+    ![](screenshots/注册界面.png)  
 
-    ![](screenshots/登陆界面.png)
-  *  消息界面:
+ * 登录界面：
 
-    ![](screenshots/消息界面.png)
+    ![](screenshots/登陆界面.png)  
 
-  * 通讯录界面:
+ *  消息界面:
 
-    ![](screenshots/通讯录.png)
+    ![](screenshots/消息界面.png)  
 
-  * 个人界面:
+ * 通讯录界面:
+
+    ![](screenshots/通讯录.png)  
+
+ * 个人界面:
 
     ![](screenshots/个人界面.png)
 
-  * 个人二维码信息:
+ * 设置界面:
 
-      ![](screenshots/个人二维码.png)
+    ![](screenshots/设置界面.png)  
 
-  * 设置界面:
+ * 聊天界面:
 
-    ![](screenshots/设置界面.png)
-
-  * 聊天界面:
-
-    ![](screenshots/聊天界面.png)
+    ![](screenshots/聊天界面.png)  
 
 ### 五.app的使用
 
-    在您的电脑上安装openfire服务器并打开，并在登录时设置本地服务器IP地址
+    在您的电脑上安装openfire服务器 并在cn/qingfeng/aixin/service/Global.java修改本地ip便可以使用该app
 
